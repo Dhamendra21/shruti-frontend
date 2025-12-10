@@ -5,10 +5,10 @@ import path from "node:path";
 export default defineConfig({
   plugins: [react()],
   server: {
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, "ssl/localhost.key")),
-      cert: fs.readFileSync(path.resolve(__dirname, "ssl/localhost.crt")),
-    },
+    // https: {
+    //   key: fs.readFileSync(path.resolve(__dirname, "ssl/localhost.key")),
+    //   cert: fs.readFileSync(path.resolve(__dirname, "ssl/localhost.crt")),
+    // },
     port: 5173,
     host: true
   }

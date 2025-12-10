@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import api from "../../api";
+import useAPI from "../../store/useAPI";
 
 // Header (used only in full mode)
 import Header from "../livetranslate/Header";
@@ -111,6 +112,7 @@ export default function TextToSignPage({
   // ---------------------------
   // 🚀 Call backend /api/text-to-sign
   // ---------------------------
+   const { video, isLoadingVideo, getVideo } = useAPI();
   const handleTranslate = async () => {
     const trimmed = text.trim();
     setError("");
@@ -120,25 +122,31 @@ export default function TextToSignPage({
       setError("Please type something or use the mic first.");
       return;
     }
+    getVideo({ text: trimmed });
+
+
+    if (!video) return; // ⛔ Wait until blob exists
 
     try {
-      setLoading(true);
-      const resp = await api.post("/api/text-to-sign", {
-        text: trimmed,
-        lang,
-      });
-      setResult(resp.data);
+      const url = URL.createObjectURL(video);
+      setResult(url);
+      console.log("Generated video URL:", url);
     } catch (err) {
-      console.error(err);
-      const msg =
-        err?.response?.data?.detail ||
-        "Something went wrong while translating.";
-      setError(msg);
-    } finally {
-      setLoading(false);
+      console.error("Error creating video url:", err);
     }
+
+    
   };
 
+ 
+
+
+    
+
+
+  // setResult({
+  //   video_url: videoURL,
+  // });
   // ---------------------------
   // UI RENDER
   // ---------------------------
@@ -194,6 +202,19 @@ export default function TextToSignPage({
           error={error}
           internalMode={internalMode}
         />
+
+        <div className="mt-6">
+          <h2 className="text-lg font-semibold mb-3">Generated Sign Video</h2>
+
+          {
+            <video
+              src={result}
+              loop
+              autoPlay
+              className="w-full max-h-[400px] rounded-lg border border-slate-700"
+            />
+          }
+        </div>
 
         {/* Result */}
         <ResultSection result={result} internalMode={internalMode} />
