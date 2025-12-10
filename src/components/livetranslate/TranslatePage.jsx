@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Layout from "../../layout/Layout";
 import Header from "./Header";
-import Camera from "./Camera";
+import Camera from "./Camera";  
 import TTSControl from "./TTSControl";
 import LiveText from "./LiveText";
 import { useSignWebSocket } from "../hooks/UsingWebsocketHook";
 import QuickReplyModal from "../TextToSign/model/Quickreply"
 import TextToSign from "../TextToSign/TextToSign";
+import CameraTwo from "./CameraTwo";
 
 export default function SignToText() {
   const { messages, sendWS } = useSignWebSocket();
@@ -42,7 +43,8 @@ export default function SignToText() {
         <div className="mt-4 grid gap-4 lg:grid-cols-[1fr_1fr]">
 
           {/* LEFT */}
-          <Camera />
+          <CameraTwo />
+          {/* <Camera /> */}
 
           {/* RIGHT */}
           <div className="flex flex-col gap-4">

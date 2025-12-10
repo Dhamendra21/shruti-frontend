@@ -1,26 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 import api from "../../api";
+import axios from "axios";
 
 export default function Camera() {
   const videoRef = useRef(null);
-  const [status, setStatus] = useState("Idle");
-  const [facing, setFacing] = useState("environment");
-  const [isCameraActive, setIsCameraActive] = useState(true);
+  const wsRef = useRef(null);
+
   const pcRef = useRef(null);
   const streamRef = useRef(null);
 
+  const [status, setStatus] = useState("Idle");
+  const [facing, setFacing] = useState("environment");
+  const [isCameraActive, setIsCameraActive] = useState(true);
+
+  // ----------------------------------------------------
+  // Toggle Camera
+  // ----------------------------------------------------
   function toggleCamera() {
     try {
       if (isCameraActive) {
-        if (streamRef.current) {
-          streamRef.current.getTracks().forEach((t) => t.stop());
-        }
-        if (pcRef.current) {
-          pcRef.current.close();
-        }
-        if (videoRef.current) {
-          videoRef.current.srcObject = null;
-        }
+        stopEverything();
         setStatus("Camera stopped");
         setIsCameraActive(false);
       } else {
@@ -33,12 +32,32 @@ export default function Camera() {
     }
   }
 
+  // ----------------------------------------------------
+  // Stop All Connections
+  // ----------------------------------------------------
+  function stopEverything() {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((t) => t.stop());
+    }
+    if (pcRef.current) {
+      pcRef.current.close();
+    }
+    if (wsRef.current) {
+      wsRef.current.close();
+    }
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
+    }
+  }
+
+  // ----------------------------------------------------
+  // Start Camera + WebRTC + WebSocket
+  // ----------------------------------------------------
   async function startCameraAndWebRTC() {
     try {
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach((t) => t.stop());
-      }
+      stopEverything(); // ensure cleanup
 
+      // 1. Camera access
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: facing },
         audio: false,
@@ -49,8 +68,9 @@ export default function Camera() {
         videoRef.current.srcObject = stream;
       }
 
-      setStatus("Connecting · Creating WebRTC offer...");
+      setStatus("Camera Ready · Connecting WebRTC...");
 
+      // 2. Create WebRTC PeerConnection
       pcRef.current = new RTCPeerConnection({
         iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
       });
@@ -59,10 +79,11 @@ export default function Camera() {
         pcRef.current.addTrack(track, stream)
       );
 
+      // 3. Create WebRTC offer
       const offer = await pcRef.current.createOffer();
       await pcRef.current.setLocalDescription(offer);
 
-      const res = await api.post("/offer", {
+      const res = await axios.post("https://172.16.55.140:8080/offer", {
         sdp: pcRef.current.localDescription.sdp,
         type: pcRef.current.localDescription.type,
       });
@@ -70,27 +91,56 @@ export default function Camera() {
       const answer = res.data;
       await pcRef.current.setRemoteDescription(answer);
 
-      setStatus("Streaming to Python backend...");
+      setStatus("Streaming video to Python backend...");
+
+      // 4. Connect WebSocket for predictions
+      wsRef.current = new WebSocket("wss://172.16.55.140:8080/ws");
+
+      wsRef.current.onopen = () => {
+        console.log("WS connected");
+        setStatus("Connected to WebSocket · Awaiting predictions...");
+      };
+
+      wsRef.current.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          console.log("Prediction:", data);
+
+          setStatus(
+            `Prediction: ${data.label} (Confidence: ${data.confidence})`
+          );
+        } catch (err) {
+          console.warn("Invalid message:", event.data);
+        }
+      };
+
+      wsRef.current.onerror = () => {
+        setStatus("WebSocket error");
+      };
+
+      wsRef.current.onclose = () => {
+        console.log("WS closed");
+        setStatus("WebSocket disconnected");
+      };
     } catch (err) {
       console.error(err);
       setStatus("Camera / WebRTC error");
     }
   }
 
+  // ----------------------------------------------------
+  // When the facing mode changes: restart camera
+  // ----------------------------------------------------
   useEffect(() => {
     startCameraAndWebRTC();
 
-    return () => {
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach((t) => t.stop());
-      }
-      if (pcRef.current) {
-        pcRef.current.close();
-      }
-    };
+    return () => stopEverything();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [facing]);
 
+  // ----------------------------------------------------
+  // Component UI
+  // ----------------------------------------------------
   return (
     <section className="mt-4">
       <div
@@ -118,6 +168,7 @@ export default function Camera() {
           "
         />
 
+        {/* Switch camera */}
         <button
           type="button"
           onClick={() =>
@@ -140,6 +191,7 @@ export default function Camera() {
           ⟳
         </button>
 
+        {/* Toggle camera */}
         <button
           type="button"
           onClick={toggleCamera}
@@ -148,21 +200,18 @@ export default function Camera() {
             px-4 py-2
             rounded-full
             border backdrop-blur
-            flex items-center justify-center
-            text-sm
-            transition
-            font-medium
+            text-sm font-medium
             ${
               isCameraActive
                 ? "border-red-500/70 bg-red-500/20 hover:bg-red-500/30 text-red-300"
                 : "border-green-500/70 bg-green-500/20 hover:bg-green-500/30 text-green-300"
             }
           `}
-          title={isCameraActive ? "Stop camera" : "Resume camera"}
         >
           {isCameraActive ? "■ Stop" : "▶ Resume"}
         </button>
 
+        {/* Status Indicator */}
         <div
           className="
             absolute bottom-3 left-3
@@ -176,53 +225,14 @@ export default function Camera() {
           "
         >
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-          <span>Camera active</span>
+          <span>{isCameraActive ? "Camera active" : "Camera stopped"}</span>
         </div>
       </div>
 
-      {/* Status and Tips */}
-      <div className="mt-4 flex flex-col gap-3 lg:gap-2">
-        <div
-          className="
-            px-3 py-2.5
-            rounded-2xl
-            bg-[#131721]
-            border border-border1
-            text-sm
-            flex items-start gap-2
-          "
-        >
-          <span className="mt-1 inline-block w-2 h-2 rounded-full bg-emerald-400" />
-          <div>
-            <p className="text-slate-200 font-medium">Status</p>
-            <p className="text-xs text-slate-400 mt-1" id="status">
-              {status}
-            </p>
-          </div>
-        </div>
-
-        <div
-          className="
-            hidden lg:flex
-            px-3 py-2.5
-            rounded-2xl
-            bg-[#11131c]
-            border border-border1/60
-            text-[0.75rem]
-            text-slate-400
-          "
-        >
-          <div>
-            <p className="font-semibold text-slate-200 mb-1 text-xs">
-              Tips
-            </p>
-            <ul className="list-disc list-inside space-y-0.5">
-              <li>Keep your hand centered in the frame.</li>
-              <li>Avoid strong backlight for better recognition.</li>
-              <li>Use a contrasting background behind your hand.</li>
-            </ul>
-          </div>
-        </div>
+      {/* Status Message */}
+      <div className="mt-4 px-3 py-2.5 rounded-2xl bg-[#131721] border border-border1 text-sm">
+        <p className="text-slate-200 font-medium">Status</p>
+        <p className="text-xs text-slate-400 mt-1">{status}</p>
       </div>
     </section>
   );

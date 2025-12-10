@@ -13,7 +13,7 @@ const Route = () => {
     <>
       <Routes>
         <RouterRoute path="/" element={<Home />} />
-        <RouterRoute path="/sign-to-text" element={<SignToText />} />
+        {/* <RouterRoute path="/sign-to-text" element={<SignToText />} /> */}
         <RouterRoute path="/about" element={<About />} />
         <RouterRoute path="/text-to-sign" element={<TextToSignPage />} />
 

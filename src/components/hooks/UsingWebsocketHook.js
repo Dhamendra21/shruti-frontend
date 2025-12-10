@@ -1,44 +1,34 @@
-import { useEffect, useState } from "react";
-import { BASE_URL } from "../../config";
+import { useEffect, useRef, useState } from "react";
 
 export function useSignWebSocket() {
+  const wsRef = useRef(null);
   const [messages, setMessages] = useState([]);
-  const [wsConn, setWsConn] = useState(null);
 
   useEffect(() => {
-    const proto = BASE_URL.startsWith("https") ? "wss" : "ws";
-    const wsUrl = BASE_URL.replace(/^https?/, proto);
+    const ws = new WebSocket("wss:/172.16.55.140:8080/ws");
+    wsRef.current = ws;
 
-    const ws = new WebSocket(`${wsUrl}/ws`);
-    setWsConn(ws);
+    ws.onopen = () => console.log("WS connected ✔");
 
-    ws.onopen = () => console.log("WS connected");
-
-    ws.onmessage = (event) => {
+    ws.onmessage = (msg) => {
       try {
-        const data = JSON.parse(event.data);
-        if (data.label) {
-          setMessages(prev => [...prev, data.label]);
-        }
-      } catch (err) {
-        console.error("Invalid WS message:", err);
+        const data = JSON.parse(msg.data); // { label, confidence }
+        setMessages((prev) => [...prev, data]);
+      } catch (e) {
+        console.error("WS parse error", e);
       }
     };
 
-    ws.onerror = (err) => console.error("WebSocket error:", err);
-    ws.onclose = () => console.log("WebSocket closed");
+    ws.onclose = () => console.log("WS disconnected ❌");
 
     return () => ws.close();
   }, []);
 
-  const sendWS = (payload) => {
-    if (wsConn && wsConn.readyState === WebSocket.OPEN) {
-      wsConn.send(JSON.stringify(payload));
+  const sendWS = (obj) => {
+    if (wsRef.current && wsRef.current.readyState === 1) {
+      wsRef.current.send(JSON.stringify(obj));
     }
   };
 
-  return {
-    messages,
-    sendWS  
-  };
+  return { messages, sendWS };
 }

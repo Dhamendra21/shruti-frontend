@@ -211,6 +211,7 @@ export default function TextToSignPage({
               src={result}
               loop
               autoPlay
+              muted
               className="w-full max-h-[400px] rounded-lg border border-slate-700"
             />
           }

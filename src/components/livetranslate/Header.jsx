@@ -7,7 +7,6 @@ export default function Header({ color }) {
   const links = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
-    { name: "Sign To Text", href: "/sign-to-text" },
     { name: "Text-to-Sign", href: "/Text-to-sign" },
   ];
 
@@ -53,6 +52,7 @@ export default function Header({ color }) {
               {item.name}
             </NavLink>
           ))}
+          <a href="https://172.16.55.140:8080">Sign to Text</a>
         </nav>
 
         {/* Mobile Hamburger */}
