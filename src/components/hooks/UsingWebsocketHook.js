@@ -5,28 +5,29 @@ export function useSignWebSocket() {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const ws = new WebSocket("wss:/172.16.55.140:8080/ws");
+    const ws = new WebSocket("wss://172.16.55.140:8080/ws");
     wsRef.current = ws;
 
-    ws.onopen = () => console.log("WS connected ✔");
+    ws.onopen = () => console.log("WS Connected ✔");
 
     ws.onmessage = (msg) => {
       try {
-        console.log(msg.data)
-        const data = JSON.parse(msg.data); // { label, confidence }
-        setMessages((prev) => [...prev, data.label]);
-      } catch (e) {
-        console.error("WS parse error", e);
+        const parsed = JSON.parse(msg.data);
+
+        // Expecting: { sentence: [], translation: "" }
+        setMessages((prev) => [...prev.slice(-40), parsed]);
+      } catch (err) {
+        console.error("WS JSON error:", err);
       }
     };
 
-    ws.onclose = () => console.log("WS disconnected ❌");
+    ws.onclose = () => console.log("WS Disconnected ❌");
 
     return () => ws.close();
   }, []);
 
   const sendWS = (obj) => {
-    if (wsRef.current && wsRef.current.readyState === 1) {
+    if (wsRef.current?.readyState === 1) {
       wsRef.current.send(JSON.stringify(obj));
     }
   };

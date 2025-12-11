@@ -1,77 +1,42 @@
-import { useEffect, useRef, useState } from "react";
-import { Hand, Activity } from "lucide-react";
+import React, { useEffect, useRef } from "react";
+import Webcam from "react-webcam";
+import { useSignWebSocket } from "../hooks/UsingWebsocketHook";
 
 export default function CameraTwo() {
-  const videoRef = useRef(null);
-  const pcRef = useRef(null);
-  const [connected, setConnected] = useState(false);
-  const [gesture, setGesture] = useState(null);
-  const [confidence, setConfidence] = useState(0);
-
-  async function startWebRTC() {
-    try {
-      console.log("Starting WebRTC…");
-
-      const pc = new RTCPeerConnection({
-        iceServers: [{ urls: "stun:stun.l.google.com:19302" }]
-      });
-      pcRef.current = pc;
-
-      pc.ontrack = (event) => {
-        console.log("Remote track received");
-      };
-
-      pc.onicecandidate = (event) => {
-        if (!event.candidate) {
-          console.log("ICE Gathering complete");
-        }
-      };
-
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: false
-      });
-
-      if (videoRef.current) videoRef.current.srcObject = stream;
-      stream.getTracks().forEach((track) => pc.addTrack(track, stream));
-
-      const offer = await pc.createOffer();
-      await pc.setLocalDescription(offer);
-
-      const res = await fetch("https://localhost:8080/offer", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(pc.localDescription)
-      });
-
-      const data = await res.json();
-      await pc.setRemoteDescription(data);
-
-      console.log("WebRTC connected");
-      setConnected(true);
-    } catch (err) {
-      console.error("WebRTC error:", err);
-    }
-  }
+  const webcamRef = useRef(null);
+  const { sendWS } = useSignWebSocket();
 
   useEffect(() => {
-    startWebRTC();
+    const interval = setInterval(() => {
+      captureFrame();
+    }, 120); // 8 FPS
+
+    return () => clearInterval(interval);
   }, []);
+
+  const captureFrame = () => {
+    if (!webcamRef.current) return;
+
+    const img = webcamRef.current.getScreenshot();
+    if (!img) return;
+
+    const base64 = img.split(",")[1]; // strip header
+
+    // backend expects ONLY the raw base64 string
+    sendWS(base64);
+  };
 
   return (
     <div className="relative rounded-xl overflow-hidden bg-white dark:bg-black p-2 shadow-lg border border-slate-300 dark:border-slate-700">
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        playsInline
-        className="w-full object-cover rounded-lg scale-x-[-1]"
+      <Webcam
+        ref={webcamRef}
+        mirrored={true}
+        screenshotFormat="image/jpeg"
+        className="w-full object-cover rounded-lg"
       />
-      
-      
 
       <p className="text-center text-sm text-slate-700 dark:text-slate-300 mt-2">
-        {connected ? "🟢 Camera Active - Sending frames…" : "Connecting…"}
+        🟢 Camera Active – Sending frames…
       </p>
     </div>
   );
