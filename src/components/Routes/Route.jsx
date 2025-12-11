@@ -3,6 +3,7 @@ import React from 'react'
 import { Routes, Route as RouterRoute } from 'react-router-dom'
 
 import Home from '../home/Home'
+import Layout from '../../layout/Layout'
 
 import About from '../pages/About'
 import SignToText from '../livetranslate/TranslatePage'
@@ -16,7 +17,7 @@ const Route = () => {
       <Routes>
         <RouterRoute path="/" element={<Home />} />
         <RouterRoute path="/sign-to-text" element={<SignToText />} />
-        <RouterRoute path="/about" element={<About />} />
+        <RouterRoute path="/about" element={<Layout><About /></Layout>} />
         <RouterRoute path="/text-to-sign" element={<TextToSignPage />} />
         <RouterRoute path="/add-signs" element={<TrainSignPage />} />
         <RouterRoute path="/train-custom-sign" element={<TrainCustomSignPage />} />

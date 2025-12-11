@@ -108,16 +108,16 @@ export default function TrainSignPage() {
   // ==============================
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 dark:from-[#080709] dark:to-[#080709] text-slate-900 dark:text-white">
-      <Header />
       {/* Top Bar */}
 
-      <div className="max-w-lg mx-auto px-5 pt-8 pb-16">
+      <div className="max-w-lg sm:min-w-[60vw] mx-auto px-5 pt-8 pb-16">
+      <Header />
         {/* Title */}
         <motion.h1
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="text-2xl font-semibold mb-3 text-slate-900 dark:text-white"
+          className="text-2xl font-semibold mb-3 text-slate-900 dark:text-white mt-10"
         >
           Train a New Sign
         </motion.h1>

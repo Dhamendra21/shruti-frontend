@@ -3,7 +3,7 @@ import Header from "../livetranslate/Header";
 
 export default function About() {
   return (
-    <div className="mt-5 px-4 pb-10 max-w-[650px] mx-auto text-slate-800 dark:text-slate-200 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 min-h-screen">
+    <div className="mt-5 px-4 pb-10 max-w-[70vw] mx-auto text-slate-800 dark:text-slate-200">
 
 <Header/>
 
@@ -12,7 +12,7 @@ export default function About() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-3xl md:text-4xl font-semibold mb-4 bg-gradient-to-r from-purpleAccent to-violet-400 bg-clip-text text-transparent"
+        className="text-3xl md:text-4xl font-semibold mb-4 bg-gradient-to-r from-purpleAccent to-violet-400 bg-clip-text text-transparent my-10"
       >
         About SHRUTI AI
       </motion.h1>
@@ -40,7 +40,7 @@ export default function About() {
         <p className="text-[0.95rem] leading-relaxed">
           <span className="font-semibold text-purpleAccent">SHRUTI AI</span> 
           is an innovative real-time translation interface that converts 
-          <span className="text-slate-100 font-semibold"> Indian Sign Language (ISL)</span> based hand gestures into 
+          <span className="text-slate-900 dark:text-slate-100 font-semibold"> Indian Sign Language (ISL)</span> based hand gestures into 
           meaningful text and speech using AI vision and natural language processing.
         </p>
 
@@ -98,8 +98,8 @@ export default function About() {
           p-5 mt-10 rounded-2xl
         "
       >
-        <h2 className="text-xl font-semibold mb-2">🚀 Vision & Mission</h2>
-        <p className="text-[0.9rem] leading-relaxed text-slate-300">
+        <h2 className="text-xl font-semibold mb-2 text-slate-900 dark:text-white">🚀 Vision & Mission</h2>
+        <p className="text-[0.9rem] leading-relaxed text-slate-700 dark:text-slate-300">
           The vision of SHRUTI AI is to make communication inclusive and remove language accessibility barriers for the deaf and speech-impaired community using AI and open technology.
         </p>
       </motion.div>
@@ -113,9 +113,9 @@ export default function About() {
         transition={{ delay: 0.3, duration: 0.7 }}
         className="mt-10"
       >
-        <h2 className="text-xl font-semibold mb-3">🛣️ Future Roadmap</h2>
+        <h2 className="text-xl font-semibold mb-3 text-slate-900 dark:text-white">🛣️ Future Roadmap</h2>
 
-        <ul className="text-[0.9rem] text-slate-300 space-y-2">
+        <ul className="text-[0.9rem] text-slate-700 dark:text-slate-300 space-y-2">
           <li>• Full 3D avatar-based sign output</li>
           <li>• Hindi → ISL reverse translation</li>
           <li>• Advanced continuous gesture recognition</li>
@@ -133,7 +133,7 @@ export default function About() {
         viewport={{ once: true }}
         transition={{ delay: 0.4, duration: 0.7 }}
         className="
-          mt-12 bg-bgBox/40 border border-border1 backdrop-blur-xl
+          mt-12 bg-white/60 dark:bg-bgBox/40 border border-slate-200 dark:border-border1 backdrop-blur-xl
           p-5 rounded-2xl
         "
       >

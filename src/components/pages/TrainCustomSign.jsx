@@ -126,9 +126,9 @@ export default function TrainCustomSignPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-[#080709] dark:to-[#080709] text-slate-900 dark:text-white">
       {/* Top Bar */}
-      <Header/>
 
       <div className="max-w-lg mx-auto px-5 pt-8 pb-16">
+      <Header/>
         {/* Title */}
         <motion.h1
           initial={{ opacity: 0, y: 18 }}

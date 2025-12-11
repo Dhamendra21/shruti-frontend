@@ -65,10 +65,12 @@ export default function CameraTwo() {
         autoPlay
         muted
         playsInline
-        className="w-full object-cover rounded-lg scale-x-[-1]"
+        className=" relative w-full h-full object-cover rounded-lg scale-x-[-1]"
       />
       
-      
+        <div className="box w-[15vw] h-[15vw] rounded-2 border-[3px] border-red-700 absolute bottom-2 z-999 text-white px-5 flex items-center justify-center ">
+          Put your hand inside this box to switch modes
+          </div>      
 
       <p className="text-center text-sm text-slate-700 dark:text-slate-300 mt-2">
         {connected ? "🟢 Camera Active - Sending frames…" : "Connecting…"}
@@ -76,3 +78,4 @@ export default function CameraTwo() {
     </div>
   );
 }
+ 
