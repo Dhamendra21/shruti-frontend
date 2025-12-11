@@ -1,6 +1,9 @@
 // src/components/textToSign/InputCard.jsx
 import { motion } from "framer-motion";
 import MicButton from "./MicButton";
+import { useState } from "react";
+import { Loader2Icon } from "lucide-react";
+import useAPI from "../../store/useAPI";
 
 export default function InputCard({
   lang,
@@ -15,6 +18,14 @@ export default function InputCard({
   loading,
   error,
 }) {
+ const { isLoadingVideo} = useAPI();
+
+  async function handleOnTranslate(){
+    setLoading(true)
+    await onTranslate()
+    setLoading(false)
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 18 }}
@@ -75,7 +86,6 @@ export default function InputCard({
       <button
         type="button"
         onClick={onTranslate}
-        disabled={loading}
         className="
           w-full mt-1
           rounded-3xl
@@ -84,12 +94,15 @@ export default function InputCard({
           text-sm font-semibold
           py-3
           text-white
+          flex 
+          justify-center
+          items-center
         
           disabled:opacity-60 disabled:cursor-not-allowed
           transition-all duration-300 ease-out
         "
       >
-        {loading ? "Converting…" : "Convert"}
+        {isLoadingVideo ? <Loader2Icon className="animate-spin" />:"Convert"}
       </button>
     </motion.div>
   );

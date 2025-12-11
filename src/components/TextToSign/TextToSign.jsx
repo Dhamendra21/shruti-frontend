@@ -11,6 +11,7 @@ import Header from "../livetranslate/Header";
 // UI Components
 import InputCard from "./InputCard";
 import ResultSection from "./ResultSection";
+import { Loader2, Loader2Icon } from "lucide-react";
 
 const LANG_OPTIONS = [
   { code: "en", label: "EN" },
@@ -112,7 +113,7 @@ export default function TextToSignPage({
   // ---------------------------
   // 🚀 Call backend /api/text-to-sign
   // ---------------------------
-   const { video, isLoadingVideo, getVideo } = useAPI();
+  const { video, isLoadingVideo, getVideo } = useAPI();
   const handleTranslate = async () => {
     const trimmed = text.trim();
     setError("");
@@ -124,7 +125,6 @@ export default function TextToSignPage({
     }
     getVideo({ text: trimmed });
 
-
     if (!video) return; // ⛔ Wait until blob exists
 
     try {
@@ -134,15 +134,7 @@ export default function TextToSignPage({
     } catch (err) {
       console.error("Error creating video url:", err);
     }
-
-    
   };
-
- 
-
-
-    
-
 
   // setResult({
   //   video_url: videoURL,
@@ -170,7 +162,7 @@ export default function TextToSignPage({
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mt-6"
+            className="mt-6 "
           >
             <h1 className="text-3xl font-semibold leading-tight">
               <span className="bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
@@ -181,11 +173,25 @@ export default function TextToSignPage({
               Convert text or speech into Sign Language video.
             </p>
 
-            <div className="inline-flex mt-4 px-4 py-1.5 rounded-full bg-blue-700/40 text-[0.7rem] text-blue-100 border border-blue-500/60 shadow-[0_0_30px_rgba(59,130,246,0.4)]">
+            <div className="inline-flex mt-4 mb-4 px-4 py-1.5 rounded-full bg-blue-700/40 text-[0.7rem] text-blue-100 border border-blue-500/60 shadow-[0_0_30px_rgba(59,130,246,0.4)]">
               Beta · Offline AI + Video Synthesis
             </div>
           </motion.div>
-        )}
+        )}{
+          !isLoadingVideo?
+          (<video
+            src={isLoadingVideo ? <Loader2Icon/>: result }
+            loop
+            autoPlay
+            muted
+            className="w-full max-h-[400px] rounded-lg border border-slate-700"
+            />):(
+              <div className="p-5"><Loader2 className="animate-spin" /></div>
+            )
+        }
+
+          <p className="text-3xl">{text}</p>
+          
 
         {/* Input Card */}
         <InputCard
@@ -198,23 +204,12 @@ export default function TextToSignPage({
           isListening={isListening}
           onToggleMic={handleToggleMic}
           onTranslate={handleTranslate}
-          loading={loading}
           error={error}
           internalMode={internalMode}
         />
 
         <div className="mt-6">
           <h2 className="text-lg font-semibold mb-3">Generated Sign Video</h2>
-
-          {
-            <video
-              src={result}
-              loop
-              autoPlay
-              muted
-              className="w-full max-h-[400px] rounded-lg border border-slate-700"
-            />
-          }
         </div>
 
         {/* Result */}

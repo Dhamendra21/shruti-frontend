@@ -7,15 +7,17 @@ import Home from '../home/Home'
 import About from '../pages/About'
 import SignToText from '../livetranslate/TranslatePage'
 import TextToSignPage from '../TextToSign/TextToSign'
+import TrainSignPage from '../pages/TrainCustomWord'
 
 const Route = () => {
   return (
     <>
       <Routes>
         <RouterRoute path="/" element={<Home />} />
-        {/* <RouterRoute path="/sign-to-text" element={<SignToText />} /> */}
+        <RouterRoute path="/sign-to-text" element={<SignToText />} />
         <RouterRoute path="/about" element={<About />} />
         <RouterRoute path="/text-to-sign" element={<TextToSignPage />} />
+        <RouterRoute path="/add-signs" element={<TrainSignPage />} />
 
       </Routes>
     </>

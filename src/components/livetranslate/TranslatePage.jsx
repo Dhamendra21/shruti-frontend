@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Layout from "../../layout/Layout";
 import Header from "./Header";
-import Camera from "./Camera";  
+import Camera from "./Camera";
 import TTSControl from "./TTSControl";
 import LiveText from "./LiveText";
 import { useSignWebSocket } from "../hooks/UsingWebsocketHook";
-import QuickReplyModal from "../TextToSign/model/Quickreply"
+import QuickReplyModal from "../TextToSign/model/Quickreply";
 import TextToSign from "../TextToSign/TextToSign";
 import CameraTwo from "./CameraTwo";
 
@@ -17,7 +17,7 @@ export default function SignToText() {
   const [showReply, setShowReply] = useState(false);
 
   const toggleTTS = () => {
-    setTtsOn(prev => {
+    setTtsOn((prev) => {
       const next = !prev;
       sendWS({ command: next ? "tts_on" : "tts_off" });
       return next;
@@ -41,7 +41,6 @@ export default function SignToText() {
         </p>
 
         <div className="mt-4 grid gap-4 lg:grid-cols-[1fr_1fr]">
-
           {/* LEFT */}
           <CameraTwo />
           {/* <Camera /> */}
@@ -67,7 +66,6 @@ export default function SignToText() {
             </button>
           </div>
         </div>
-
       </main>
 
       {/* QUICK REPLY MODAL */}

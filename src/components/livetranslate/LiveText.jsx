@@ -39,13 +39,12 @@ export default function LiveText({ messages }) {
               <div
                 key={idx}
                 className="
-                  inline-block
                   rounded-2xl
                   px-3 py-1.5
                   bg-slate-900/80
                   border border-slate-700/70
                   text-slate-100
-                  text-[0.8rem]
+                  text-15
                 "
               >
                 {msg}

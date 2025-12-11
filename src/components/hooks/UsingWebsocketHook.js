@@ -5,15 +5,16 @@ export function useSignWebSocket() {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const ws = new WebSocket("wss:/172.16.55.140:8080/ws");
+    const ws = new WebSocket("wss:/localhost:8080/ws");
     wsRef.current = ws;
 
     ws.onopen = () => console.log("WS connected ✔");
 
     ws.onmessage = (msg) => {
       try {
+        console.log(msg.data)
         const data = JSON.parse(msg.data); // { label, confidence }
-        setMessages((prev) => [...prev, data]);
+        setMessages((prev) => [...prev, data.label]);
       } catch (e) {
         console.error("WS parse error", e);
       }
