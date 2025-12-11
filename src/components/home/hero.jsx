@@ -1,10 +1,11 @@
 import { color, motion } from "framer-motion";
 import { Hand, Brain, Sparkles, Award } from 'lucide-react';
 import Header from "../livetranslate/Header";
+import { Link } from "react-router-dom";
 
 export function Hero() {
   return (
-    <div className="relative overflow-hidden bg-gradient-to-br from-[#001f3f] via-[#003366] to-[#002244]">
+    <div className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-[#001f3f] dark:via-[#003366] dark:to-[#002244]">
     <Header  />
   
      {/* Decorative elements */}
@@ -41,14 +42,14 @@ export function Hero() {
               <div className="inline-block mb-4">
                 <div className="h-1 w-20 bg-gradient-to-r from-orange-500 to-orange-400 rounded-full"></div>
               </div>
-              <h1 className="text-5xl md:text-6xl text-white mb-6 leading-tight">
+              <h1 className="text-5xl md:text-6xl text-slate-900 dark:text-white mb-6 leading-tight">
                 Shruti AI
               </h1>
-              <p className="text-xl md:text-2xl text-blue-100 mb-4">
+              <p className="text-xl md:text-2xl text-slate-700 dark:text-blue-100 mb-4">
                 Sign Hand Gesture Recognition Understanding 
 Translation Interface
               </p>
-              <p className="text-lg text-blue-200/80 max-w-xl">
+              <p className="text-lg text-slate-600 dark:text-blue-200/80 max-w-xl">
                 Empowering accessible communication through AI-powered sign language recognition and interactive learning for a more inclusive India.
               </p>
             </motion.div>
@@ -59,10 +60,10 @@ Translation Interface
               transition={{ duration: 0.7, delay: 0.4 }}
               className="flex flex-wrap gap-4"
             >
-              <button className="px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:shadow-xl hover:shadow-orange-500/30 transition-all duration-300 hover:scale-105">
+              <Link to={"/text-to-sign"} className="px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:shadow-xl hover:shadow-orange-500/30 transition-all duration-300 hover:scale-105">
                 Get Started
-              </button>
-              <button className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white rounded-lg hover:bg-white/20 transition-all duration-300">
+              </Link >
+              <button className="px-8 py-4 bg-slate-900/10 dark:bg-white/10 backdrop-blur-md border border-slate-900/30 dark:border-white/30 text-slate-900 dark:text-white rounded-lg hover:bg-slate-900/20 dark:hover:bg-white/20 transition-all duration-300">
                 Learn More
               </button>
             </motion.div>
@@ -72,19 +73,19 @@ Translation Interface
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.6 }}
-              className="grid grid-cols-3 gap-6 pt-8 border-t border-white/10"
+              className="grid grid-cols-3 gap-6 pt-8 border-t border-slate-900/10 dark:border-white/10"
             >
               <div>
                 <div className="text-3xl text-orange-400 mb-1">5000+</div>
-                <div className="text-sm text-blue-200/70">Active Learners</div>
+                <div className="text-sm text-slate-600 dark:text-blue-200/70">Active Learners</div>
               </div>
               <div>
                 <div className="text-3xl text-orange-400 mb-1">98%</div>
-                <div className="text-sm text-blue-200/70">Accuracy</div>
+                <div className="text-sm text-slate-600 dark:text-blue-200/70">Accuracy</div>
               </div>
               <div>
                 <div className="text-3xl text-orange-400 mb-1">24/7</div>
-                <div className="text-sm text-blue-200/70">Availability</div>
+                <div className="text-sm text-slate-600 dark:text-blue-200/70">Availability</div>
               </div>
             </motion.div>
           </div>

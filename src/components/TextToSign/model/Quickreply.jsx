@@ -4,7 +4,7 @@ export default function QuickReplyModal({ children, onClose }) {
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center z-50"
+        className="fixed mt-50 inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center z-50"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -18,7 +18,7 @@ export default function QuickReplyModal({ children, onClose }) {
         >
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 bg-white/10 hover:bg-white/20
+            className="absolute bottom-[95vh] right-4 bg-white/10 hover:bg-white/20
                        w-8 h-8 rounded-full flex items-center justify-center text-white"
           >
             ✕

@@ -3,30 +3,30 @@ import { Mail, Phone, MapPin, ExternalLink, Github, Linkedin, Twitter } from 'lu
 
 export function Footer() {
   return (
-    <footer className="bg-gradient-to-br from-[#001f3f] to-[#002244] text-white">
+    <footer className="bg-gradient-to-br from-white to-slate-100 dark:from-[#001f3f] dark:to-[#002244] text-slate-900 dark:text-white">
       {/* Main footer content */}
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           {/* About */}
           <div className="md:col-span-2">
-            <h3 className="text-2xl mb-4">Shruti AI</h3>
+            <h3 className="text-2xl mb-4 text-slate-900 dark:text-white">Shruti AI</h3>
             <div className="h-1 w-16 bg-gradient-to-r from-orange-500 to-orange-400 rounded-full mb-4"></div>
-            <p className="text-blue-100/80 mb-6 max-w-md">
+            <p className="text-slate-700 dark:text-blue-100/80 mb-6 max-w-md">
               An innovative Indian Sign Language platform leveraging AI to create accessible communication solutions for the deaf and hard-of-hearing community across India.
             </p>
-            <div className="inline-flex items-center gap-2 bg-orange-500/20 border border-orange-400/30 rounded-lg px-4 py-2 text-orange-300 text-sm">
+            <div className="inline-flex items-center gap-2 bg-orange-100 dark:bg-orange-500/20 border border-orange-300 dark:border-orange-400/30 rounded-lg px-4 py-2 text-orange-800 dark:text-orange-300 text-sm">
               Developed for Smart India Hackathon 2024
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg mb-4">Quick Links</h4>
+            <h4 className="text-lg mb-4 text-slate-900 dark:text-white">Quick Links</h4>
             <div className="h-1 w-12 bg-gradient-to-r from-orange-500 to-orange-400 rounded-full mb-4"></div>
             <ul className="space-y-3">
               {['About Us', 'Services', 'Learning Platform', 'Documentation', 'FAQs', 'Support'].map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-blue-100/70 hover:text-orange-400 transition-colors duration-200 flex items-center gap-2 group">
+                  <a href="#" className="text-slate-700 dark:text-blue-100/70 hover:text-orange-600 dark:hover:text-orange-400 transition-colors duration-200 flex items-center gap-2 group">
                     <span className="group-hover:translate-x-1 transition-transform duration-200">{link}</span>
                   </a>
                 </li>
@@ -36,7 +36,7 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-lg mb-4">Contact</h4>
+            <h4 className="text-lg mb-4 text-slate-900 dark:text-white">Contact</h4>
             <div className="h-1 w-12 bg-gradient-to-r from-orange-500 to-orange-400 rounded-full mb-4"></div>
             <ul className="space-y-4">
               <li className="flex items-start gap-3 text-blue-100/70">
@@ -61,7 +61,7 @@ export function Footer() {
         {/* Bottom section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Copyright */}
-          <div className="text-blue-100/60 text-sm text-center md:text-left">
+          <div className="text-slate-600 dark:text-blue-100/60 text-sm text-center md:text-left">
             <p>© 2024 Shruti AI. All rights reserved.</p>
             <p className="mt-1">A Government of India Initiative</p>
           </div>

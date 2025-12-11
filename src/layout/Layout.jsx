@@ -4,7 +4,7 @@ export default function Layout({ children, isWide = false }) {
       className="
         min-h-screen 
         mx-auto 
-        bg-bgMain text-textMain
+        bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 text-slate-900 dark:text-slate-100
         px-3
         flex
         justify-center

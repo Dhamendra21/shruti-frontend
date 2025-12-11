@@ -5,7 +5,7 @@ export function useSignWebSocket() {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const ws = new WebSocket("wss:/localhost:8080/ws");
+    const ws = new WebSocket("wss:/172.16.55.140:8080/ws");
     wsRef.current = ws;
 
     ws.onopen = () => console.log("WS connected ✔");

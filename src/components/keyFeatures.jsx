@@ -36,7 +36,7 @@ const features = [
 
 export function Features() {
   return (
-    <section className="py-20 px-6 bg-white">
+    <section className="py-20 px-6 bg-white dark:bg-slate-900">
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
         <motion.div
@@ -49,10 +49,10 @@ export function Features() {
           <div className="inline-block mb-4">
             <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-blue-400 rounded-full mx-auto"></div>
           </div>
-          <h2 className="text-4xl md:text-5xl text-[#001f3f] mb-4">
+          <h2 className="text-4xl md:text-5xl text-slate-900 dark:text-white mb-4">
             Key Features
           </h2>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
             Built with cutting-edge technology and accessibility at the core
           </p>
         </motion.div>
@@ -68,22 +68,22 @@ export function Features() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group"
             >
-              <div className="relative bg-gradient-to-br from-slate-50 to-white rounded-xl p-6 border border-slate-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300">
+              <div className="relative bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-700 rounded-xl p-6 border border-slate-200 dark:border-slate-600 hover:border-blue-300 dark:hover:border-blue-400 hover:shadow-xl transition-all duration-300">
                 {/* Icon */}
                 <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                   <feature.icon className="w-6 h-6 text-white" />
                 </div>
 
                 {/* Content */}
-                <h3 className="text-xl text-[#001f3f] mb-2">
+                <h3 className="text-xl text-slate-900 dark:text-white mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-slate-600 text-sm">
+                <p className="text-slate-600 dark:text-slate-400 text-sm">
                   {feature.description}
                 </p>
 
                 {/* Decorative corner */}
-                <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-orange-100 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-orange-100 dark:from-orange-900/40 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
             </motion.div>
           ))}

@@ -27,7 +27,7 @@ const services = [
 
 export function Services() {
   return (
-    <section className="py-20 px-6 bg-gradient-to-b from-white to-slate-50">
+    <section className="py-20 px-6 bg-gradient-to-b from-white to-slate-50 dark:from-slate-900 dark:to-slate-800">
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
         <motion.div
@@ -40,10 +40,10 @@ export function Services() {
           <div className="inline-block mb-4">
             <div className="h-1 w-20 bg-gradient-to-r from-orange-500 to-orange-400 rounded-full mx-auto"></div>
           </div>
-          <h2 className="text-4xl md:text-5xl text-[#001f3f] mb-4">
+          <h2 className="text-4xl md:text-5xl text-slate-900 dark:text-white mb-4">
             Our Services
           </h2>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
             Comprehensive AI-powered solutions for Indian Sign Language communication
           </p>
         </motion.div>
@@ -60,7 +60,7 @@ export function Services() {
               whileHover={{ y: -8, scale: 1.02 }}
               className="group relative"
             >
-              <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-100 overflow-hidden">
+              <div className="relative bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-700 overflow-hidden">
                 {/* Gradient overlay on hover */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}></div>
                 
@@ -70,17 +70,17 @@ export function Services() {
                 </div>
 
                 {/* Content */}
-                <h3 className="text-2xl text-[#001f3f] mb-3">
+                <h3 className="text-2xl text-slate-900 dark:text-white mb-3">
                   {service.title}
                 </h3>
-                <p className="text-slate-600 mb-6">
+                <p className="text-slate-600 dark:text-slate-300 mb-6">
                   {service.description}
                 </p>
 
                 {/* Features */}
                 <ul className="space-y-2">
                   {service.features.map((feature, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm text-slate-500">
+                    <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
                       <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${service.color}`}></div>
                       {feature}
                     </li>

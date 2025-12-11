@@ -34,10 +34,10 @@ export default function InputCard({
       className="mt-6"
     >
       {/* Input card */}
-      <div className="rounded-3xl bg-[#0b0b15] border border-white/10 shadow-[0_18px_45px_rgba(0,0,0,0.9)] px-4 py-4 mb-4">
+      <div className="rounded-3xl bg-white dark:bg-[#0b0b15] border border-slate-200 dark:border-white/10 shadow-[0_18px_45px_rgba(0,0,0,0.1)] dark:shadow-[0_18px_45px_rgba(0,0,0,0.9)] px-4 py-4 mb-4">
         {/* top row: language + mic */}
         <div className="flex items-center justify-between mb-3">
-          <div className="inline-flex items-center rounded-full bg-black/60 px-3 py-1 text-xs text-slate-100 border border-white/5">
+          <div className="inline-flex items-center rounded-full bg-slate-100 dark:bg-black/60 px-3 py-1 text-xs text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-white/5">
             <select
               className="bg-transparent outline-none text-xs"
               value={lang}
@@ -47,7 +47,7 @@ export default function InputCard({
                 <option
                   key={opt.code}
                   value={opt.code}
-                  className="bg-[#05050a]"
+                  className="bg-white dark:bg-[#05050a] text-slate-900 dark:text-white"
                 >
                   {opt.label}
                 </option>
@@ -60,13 +60,13 @@ export default function InputCard({
 
         {/* textarea */}
         <textarea
-          className="w-full bg-transparent border-none outline-none text-sm text-slate-100 placeholder:text-slate-600 min-h-[80px]"
+          className="w-full bg-transparent border-none outline-none text-base font-bold text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-600 min-h-[80px]"
           placeholder="Type your sentence or use mic..."
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
 
-        <p className="mt-4 text-[0.72rem] text-slate-500">
+        <p className="mt-4 text-[0.72rem] text-slate-600 dark:text-slate-500">
           {isListening
             ? "Listening… speak clearly near your microphone."
             : liveTranscript
@@ -77,7 +77,7 @@ export default function InputCard({
 
       {/* error */}
       {error && (
-        <div className="mb-3 text-[0.72rem] text-red-300 bg-red-900/40 border border-red-700 rounded-xl px-3 py-2">
+        <div className="mb-3 text-[0.72rem] text-red-700 dark:text-red-300 bg-red-100 dark:bg-red-900/40 border border-red-300 dark:border-red-700 rounded-xl px-3 py-2">
           {error}
         </div>
       )}

@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { RefreshCcw, ArrowLeft } from "lucide-react";
+import { RefreshCcw, ArrowLeft, X } from "lucide-react";
 import { motion } from "framer-motion";
 import Header from "../livetranslate/Header";
 import api from "../../api";
+import spinner from "../spinner.mp4";
 
 export default function TrainSignPage() {
   const videoRef = useRef(null);
@@ -13,7 +14,9 @@ export default function TrainSignPage() {
   const [recording, setRecording] = useState(false);
   const [facingMode, setFacingMode] = useState("user");
   const [text, setText] = useState("");
-
+  const [uploading, setUploading] = useState(false)
+  console.log(uploading);
+  
   // ==============================
   // CAMERA INIT
   // ==============================
@@ -90,11 +93,13 @@ export default function TrainSignPage() {
   async function uploadVideo(name, blob) {
     const form = new FormData();
     form.append("video", blob, `${name}.webm`);
+    setUploading(true)
 
     await api.post("/api/storeVideo", form, {
       headers: { "Content-Type": "multipart/form-data" },
     });
 
+    setUploading(false)
     alert("Sign saved!");
   }
 
@@ -102,7 +107,7 @@ export default function TrainSignPage() {
   // UI DESIGN
   // ==============================
   return (
-    <div className="min-h-screen bg-[#080709] text-white">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 dark:from-[#080709] dark:to-[#080709] text-slate-900 dark:text-white">
       <Header />
       {/* Top Bar */}
 
@@ -112,25 +117,25 @@ export default function TrainSignPage() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="text-2xl font-semibold mb-3"
+          className="text-2xl font-semibold mb-3 text-slate-900 dark:text-white"
         >
           Train a New Sign
         </motion.h1>
 
         {/* Badge */}
-        <div className="inline-flex text-xs items-center gap-1 px-4 py-1 rounded-full bg-purple-700/30 text-purple-300 border border-purple-500/40 mb-4 shadow-sm">
+        <div className="inline-flex text-xs items-center gap-1 px-4 py-1 rounded-full bg-purple-200 dark:bg-purple-700/30 text-purple-900 dark:text-purple-300 border border-purple-900/40 dark:border-purple-500/40 mb-4 shadow-sm">
           <span>●</span>
           CUSTOM DATASET · LOCAL LEARNING
         </div>
 
         {/* Subtitle */}
-        <p className="text-sm text-slate-400 mb-6">
+        <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">
           Record your custom sign for a specific word or phrase. This data stays
           on your device to personalize your AI model.
         </p>
 
         {/* Input */}
-        <label className="block text-sm mb-2 font-medium">
+        <label className="block text-sm mb-2 font-medium text-slate-900 dark:text-white">
           Word or Sentence
         </label>
         <input
@@ -138,7 +143,7 @@ export default function TrainSignPage() {
           placeholder="Enter word or sentence..."
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-purple-500 transition mb-8"
+          className="w-full bg-white/10 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-purple-500 transition mb-8 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500"
         />
 
         {/* Camera */}
@@ -153,7 +158,7 @@ export default function TrainSignPage() {
               autoPlay
               muted
               playsInline
-              className="w-full aspect-video object-cover"
+              className="w-full aspect-video object-cover scale-x-[-1]"
             />
           </div>
 
@@ -165,12 +170,21 @@ export default function TrainSignPage() {
             <RefreshCcw size={18} />
           </button>
 
+          {/* Stop Camera Button */}
+          <button
+            onClick={stopCamera}
+            className="absolute left-3 top-3 bg-black/40 p-2 rounded-full backdrop-blur-md hover:bg-black/60"
+          >
+            <X size={18} />
+          </button>
+
           {/* Hint */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/40 px-3 py-1 rounded-full text-xs backdrop-blur-md flex items-center gap-1">
             <span>ℹ️</span> Make sure your hands are visible
           </div>
         </div>
 
+              
         {/* Buttons */}
         {!recording ? (
           <button
@@ -188,7 +202,8 @@ export default function TrainSignPage() {
           </button>
         )}
 
-        <p className="text-center text-[10px] mt-8 text-slate-500">
+        {uploading ? (<video className="w-16 h-16 mt-4 mx-auto" src={spinner} autoPlay loop muted></video>):""}
+        <p className="text-center text-[10px] mt-8 text-slate-500 dark:text-slate-500">
           POWERED BY SHRUTI AI ENGINE V2.0
         </p>
       </div>

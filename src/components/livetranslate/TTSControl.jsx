@@ -19,8 +19,8 @@ export default function TTSControl({ ttsOn, toggleTTS, activeLang, onChangeLang 
       className="
         mt-4
         rounded-3xl
-        bg-bgBox
-        border border-border1
+        bg-white dark:bg-bgBox
+        border border-slate-300 dark:border-border1
         px-4 py-3
         flex flex-col gap-3
       "
@@ -28,11 +28,11 @@ export default function TTSControl({ ttsOn, toggleTTS, activeLang, onChangeLang 
       {/* Header Row */}
       <div className="flex items-center justify-between gap-3">
         <div>
-          <p className="text-sm font-medium text-slate-100 flex items-center gap-2">
+          <p className="text-sm font-medium text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <span className="text-lg">🔊</span>
             Text-to-Speech (Offline)
           </p>
-          <p className="text-[0.75rem] text-slate-400 mt-0.5">
+          <p className="text-[0.75rem] text-slate-600 dark:text-slate-400 mt-0.5">
             Speak translated text directly using browser voice.
           </p>
         </div>
@@ -69,15 +69,15 @@ export default function TTSControl({ ttsOn, toggleTTS, activeLang, onChangeLang 
       {/* Language Selector (Only visible when ON) */}
       {ttsOn && (
         <div className="flex items-center justify-between">
-          <label className="text-[0.75rem] text-slate-300">
+          <label className="text-[0.75rem] text-slate-600 dark:text-slate-300">
             Output language
           </label>
 
           <select
             className="
-              bg-bgBox
-              border border-border2
-              text-slate-200
+              bg-white dark:bg-bgBox
+              border border-slate-300 dark:border-border2
+              text-slate-900 dark:text-slate-200
               rounded-lg
               text-sm
               px-2 py-1

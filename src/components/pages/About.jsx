@@ -3,7 +3,7 @@ import Header from "../livetranslate/Header";
 
 export default function About() {
   return (
-    <div className="mt-5 px-4 pb-10 max-w-[650px] mx-auto text-slate-200">
+    <div className="mt-5 px-4 pb-10 max-w-[650px] mx-auto text-slate-800 dark:text-slate-200 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 min-h-screen">
 
 <Header/>
 
@@ -22,7 +22,7 @@ export default function About() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.5 }}
-        className="text-sm text-slate-400 mb-6"
+        className="text-sm text-slate-600 dark:text-slate-400 mb-6"
       >
         Real-time Sign Gesture Translation System
       </motion.p>
@@ -33,7 +33,7 @@ export default function About() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
         className="
-          bg-bgBox/50 border border-border1 backdrop-blur-xl 
+          bg-white/50 dark:bg-bgBox/50 border border-slate-200 dark:border-border1 backdrop-blur-xl 
           p-5 rounded-2xl shadow-soft
         "
       >
@@ -44,7 +44,7 @@ export default function About() {
           meaningful text and speech using AI vision and natural language processing.
         </p>
 
-        <p className="mt-3 text-[0.9rem] leading-relaxed text-slate-300">
+        <p className="mt-3 text-[0.9rem] leading-relaxed text-slate-700 dark:text-slate-300">
           The platform enables inclusive communication for people with speech or hearing disabilities, bridging the gap between 
           sign gestures and spoken languages like English, Hindi, Marathi, and Bengali.
         </p>
@@ -57,7 +57,7 @@ export default function About() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="text-xl font-semibold mt-10 mb-3"
+        className="text-xl font-semibold mt-10 mb-3 text-slate-900 dark:text-white"
       >
         ✨ Core Features
       </motion.h2>
@@ -94,7 +94,7 @@ export default function About() {
         viewport={{ once: true }}
         transition={{ delay: 0.2, duration: 0.7 }}
         className="
-          bg-bgBox/60 border border-border2 backdrop-blur-xl 
+          bg-white/60 dark:bg-bgBox/60 border border-slate-200 dark:border-border2 backdrop-blur-xl 
           p-5 mt-10 rounded-2xl
         "
       >
@@ -137,14 +137,14 @@ export default function About() {
           p-5 rounded-2xl
         "
       >
-        <h2 className="text-xl font-semibold mb-2">👤 Created By</h2>
-        <p className="text-[0.9rem] leading-relaxed text-slate-300">
+        <h2 className="text-xl font-semibold mb-2 text-slate-900 dark:text-white">👤 Created By</h2>
+        <p className="text-[0.9rem] leading-relaxed text-slate-700 dark:text-slate-300">
           SHRUTI AI is independently developed by 
           <span className="font-semibold text-purpleAccent"> Dhamendra Sahu</span>, 
           a passionate developer working on AI, IoT, and accessible solutions.
         </p>
 
-        <p className="mt-3 text-[0.9rem]">
+        <p className="mt-3 text-[0.9rem] text-slate-700 dark:text-slate-300">
           GitHub: <span className="text-purpleAccent">github.com/&lt;your-username&gt;</span>
         </p>
       </motion.div>
@@ -163,15 +163,15 @@ function Feature({ title, desc }) {
       viewport={{ once: true }}
       transition={{ duration: 0.4 }}
       className="
-        bg-bgText/60 border border-border2 
+        bg-white/60 dark:bg-bgText/60 border border-slate-200 dark:border-border2 
         backdrop-blur-lg px-4 py-3 
         rounded-xl
       "
     >
-      <h3 className="text-[0.95rem] font-semibold text-slate-100">
+      <h3 className="text-[0.95rem] font-semibold text-slate-900 dark:text-slate-100">
         {title}
       </h3>
-      <p className="text-[0.85rem] text-slate-300 mt-1 leading-relaxed">
+      <p className="text-[0.85rem] text-slate-700 dark:text-slate-300 mt-1 leading-relaxed">
         {desc}
       </p>
     </motion.div>

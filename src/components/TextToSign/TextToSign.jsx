@@ -114,6 +114,20 @@ export default function TextToSignPage({
   // 🚀 Call backend /api/text-to-sign
   // ---------------------------
   const { video, isLoadingVideo, getVideo } = useAPI();
+  
+  // Update result whenever video blob arrives
+  useEffect(() => {
+    if (video) {
+      try {
+        const url = URL.createObjectURL(video);
+        setResult(url);
+        console.log("Generated video URL:", url);
+      } catch (err) {
+        console.error("Error creating video url:", err);
+      }
+    }
+  }, [video]);
+  
   const handleTranslate = async () => {
     const trimmed = text.trim();
     setError("");
@@ -123,17 +137,9 @@ export default function TextToSignPage({
       setError("Please type something or use the mic first.");
       return;
     }
-    getVideo({ text: trimmed });
-
-    if (!video) return; // ⛔ Wait until blob exists
-
-    try {
-      const url = URL.createObjectURL(video);
-      setResult(url);
-      console.log("Generated video URL:", url);
-    } catch (err) {
-      console.error("Error creating video url:", err);
-    }
+    
+    // Call API - video state will be updated by useEffect above
+    await getVideo({ text: trimmed });
   };
 
   // setResult({
@@ -144,7 +150,7 @@ export default function TextToSignPage({
   // ---------------------------
   return (
     <div
-      className={`min-h-screen bg-gradient-to-b from-[#05040a] via-[#05050c] to-[#03040a] text-white ${
+      className={`min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 dark:from-[#05040a] dark:via-[#05050c] dark:to-[#03040a] text-slate-900 dark:text-white ${
         internalMode ? "pt-2" : "pt-5"
       }`}
     >
@@ -165,19 +171,19 @@ export default function TextToSignPage({
             className="mt-6 "
           >
             <h1 className="text-3xl font-semibold leading-tight">
-              <span className="bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
                 Text → Sign Conversion
               </span>
             </h1>
-            <p className="text-sm text-slate-400 mt-2">
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
               Convert text or speech into Sign Language video.
             </p>
 
-            <div className="inline-flex mt-4 mb-4 px-4 py-1.5 rounded-full bg-blue-700/40 text-[0.7rem] text-blue-100 border border-blue-500/60 shadow-[0_0_30px_rgba(59,130,246,0.4)]">
+            <div className="inline-flex mt-4 mb-4 px-4 py-1.5 rounded-full bg-blue-700/40 dark:bg-blue-700/40 text-[0.7rem] text-blue-900 dark:text-blue-100 border border-blue-900/60 dark:border-blue-500/60 shadow-[0_0_30px_rgba(59,130,246,0.4)]">
               Beta · Offline AI + Video Synthesis
             </div>
           </motion.div>
-        )}{
+                  )}{
           !isLoadingVideo?
           (<video
             src={isLoadingVideo ? <Loader2Icon/>: result }

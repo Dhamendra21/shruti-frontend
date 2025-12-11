@@ -4,7 +4,7 @@ export default function LiveText({ messages }) {
   return (
     <section className="mt-4">
       <div className="flex items-center justify-between px-1 mb-2">
-        <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
+        <p className="text-xs uppercase tracking-[0.18em] text-slate-600 dark:text-slate-500">
           Live transcript
         </p>
       </div>
@@ -14,8 +14,8 @@ export default function LiveText({ messages }) {
           m-1
           p-4
           rounded-3xl
-          border border-border2
-          bg-bgText/95
+          border border-slate-300 dark:border-border2
+          bg-white dark:bg-bgText/95
           h-[210px]
           sm:h-[240px]
           md:h-[280px]
@@ -27,7 +27,7 @@ export default function LiveText({ messages }) {
         "
       >
         {!hasMessages && (
-          <div className="h-full flex flex-col items-center justify-center text-center text-slate-400 text-xs">
+          <div className="h-full flex flex-col items-center justify-center text-center text-slate-500 dark:text-slate-400 text-xs">
             <p className="mb-1">Waiting for gestures...</p>
             <p>Point your camera at your hand to begin translation.</p>
           </div>
@@ -41,9 +41,9 @@ export default function LiveText({ messages }) {
                 className="
                   rounded-2xl
                   px-3 py-1.5
-                  bg-slate-900/80
-                  border border-slate-700/70
-                  text-slate-100
+                  bg-slate-200 dark:bg-slate-900/80
+                  border border-slate-300 dark:border-slate-700/70
+                  text-slate-900 dark:text-slate-100
                   text-15
                 "
               >

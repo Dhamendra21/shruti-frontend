@@ -34,10 +34,10 @@ export default function SignToText() {
       <Header />
 
       <main className="mt-16">
-        <p className="px-1 text-sm sm:text-base text-slate-200">
+        <p className="px-1 text-sm sm:text-base text-slate-700 dark:text-slate-200">
           Sign hand gesture recognition{" "}
-          <span className="text-slate-400">·</span>{" "}
-          <span className="text-slate-400">Live translation interface</span>
+          <span className="text-slate-500 dark:text-slate-400">·</span>{" "}
+          <span className="text-slate-500 dark:text-slate-400">Live translation interface</span>
         </p>
 
         <div className="mt-4 grid gap-4 lg:grid-cols-[1fr_1fr]">

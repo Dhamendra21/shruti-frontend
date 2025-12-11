@@ -3,7 +3,7 @@ import { Target, Eye, Heart, Users } from 'lucide-react';
 
 export function Mission() {
   return (
-    <section className="py-20 px-6 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
+    <section className="py-20 px-6 bg-gradient-to-b from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 relative overflow-hidden">
       {/* Decorative mandala pattern */}
       <div className="absolute top-10 right-10 w-64 h-64 opacity-[0.03]">
         <svg viewBox="0 0 100 100" className="w-full h-full">
@@ -31,7 +31,7 @@ export function Mission() {
                   <Target className="w-7 h-7 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-3xl text-[#001f3f] mb-2">Our Mission</h3>
+                  <h3 className="text-3xl text-slate-900 dark:text-white mb-2">Our Mission</h3>
                   <div className="h-1 w-16 bg-gradient-to-r from-orange-500 to-orange-400 rounded-full"></div>
                 </div>
               </div>
@@ -55,7 +55,7 @@ export function Mission() {
                   <Eye className="w-7 h-7 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-3xl text-[#001f3f] mb-2">Our Vision</h3>
+                  <h3 className="text-3xl text-slate-900 dark:text-white mb-2">Our Vision</h3>
                   <div className="h-1 w-16 bg-gradient-to-r from-blue-500 to-blue-400 rounded-full"></div>
                 </div>
               </div>
@@ -72,7 +72,7 @@ export function Mission() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-gradient-to-br from-[#001f3f] to-[#003366] rounded-3xl p-10 md:p-12 relative overflow-hidden"
+          className="bg-gradient-to-br from-slate-900 to-slate-800 dark:from-[#001f3f] dark:to-[#003366] rounded-3xl p-10 md:p-12 relative overflow-hidden"
         >
           {/* Gold separator line */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-orange-400 to-transparent"></div>
@@ -81,7 +81,7 @@ export function Mission() {
             <h3 className="text-3xl md:text-4xl text-white mb-4">
               Creating Inclusive Digital India
             </h3>
-            <p className="text-blue-100 text-lg max-w-3xl mx-auto">
+            <p className="text-slate-100 dark:text-blue-100 text-lg max-w-3xl mx-auto">
               Aligned with Digital India and Accessible India initiatives, Shruti AI contributes to building an equitable society
             </p>
           </div>

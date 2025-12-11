@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { Hand, Activity } from "lucide-react";
 
 export default function CameraTwo() {
   const videoRef = useRef(null);
   const pcRef = useRef(null);
   const [connected, setConnected] = useState(false);
+  const [gesture, setGesture] = useState(null);
+  const [confidence, setConfidence] = useState(0);
 
   async function startWebRTC() {
     try {
@@ -56,15 +59,18 @@ export default function CameraTwo() {
   }, []);
 
   return (
-    <div className="rounded-xl overflow-hidden bg-black p-2 shadow-lg border border-slate-700">
+    <div className="relative rounded-xl overflow-hidden bg-white dark:bg-black p-2 shadow-lg border border-slate-300 dark:border-slate-700">
       <video
         ref={videoRef}
         autoPlay
         muted
         playsInline
-        className="w-full h-[380px] object-cover rounded-lg scale-x-[-1]"
+        className="w-full object-cover rounded-lg scale-x-[-1]"
       />
-      <p className="text-center text-sm text-slate-300 mt-2">
+      
+      
+
+      <p className="text-center text-sm text-slate-700 dark:text-slate-300 mt-2">
         {connected ? "🟢 Camera Active - Sending frames…" : "Connecting…"}
       </p>
     </div>
